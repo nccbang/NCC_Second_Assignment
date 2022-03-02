@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "express": "^4.17.3",
+    "socket.io": "^4.4.1",
+    "socket.io-client": "^4.4.1"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "oprec_admin_ncc_second_assignment-main",
+  "description": "## Definisi <em>Socket.IO is a library that enables real-time, bidirectional and event-based communication between the browser and the server.</em> <br> ## Install Dependencies Install node.js pada system terlebih dahulu disini https://nodejs.org/en/, lalu tambahkan package berikut: ``` npm init npm install socket.io socket.io-client npm install express@4 ``` ## Membuat tampilan Untuk membuat tampilan pada aplikasi ini, digunakan basic HTML dan CSS sebagai berikut:  ```HTML <!DOCTYPE html> <html>   <head>     <title>Live Chat Socket.io</title>     <link rel=\"stylesheet\" href=\"/styles.css\" />   </head>   <body>     <div class=\"header\">       <h1>NCC Live Chat</h1>     </div>     <div class=\"roomname\">       <h1 id=\"room\">Roomname: </h1>     </div>     <div class=\"users\">       <h1 class=\"inthisroom\">In this room:</h1>       <ul id=\"user\"></ul>     </div>     <div class=\"box\">       <ul id=\"messages\"></ul>     </div>     <div class=\"rooms\">       <h1 class=\"roomavailable\">Room Available:</h1>       <ul id=\"room-a\"></ul>     </div>     <form id=\"form\" action=\"\">       <input id=\"input\" autocomplete=\"off\" /><button class=\"button\">         Send       </button>     </form>   </body> </html> ``` Tambahakan script dibawah ini agar socket.io dapat dijalankan ```HTML <script src=\"/socket.io/socket.io.js\"></script> ``` Untuk melihat file CSS terdapat pada folder /public/styles.css <br> ## Client-Side ```js let userName = prompt('Masukkan nama'); let room = prompt('Masukkan nama room'); let ID = ''; var socket = io(); var roomname = document.getElementById('room'); var userlist = document.getElementById('user'); var roomlist = document.getElementById('room-a'); roomname.textContent += room; ``` Pada homepage web yang dibuat, dibutuhkan sebuah username dan roomname dari user. Username dan roomname akan digunakan untuk tampilan halaman sekaligus fungsionalitas dari aplikasi. Hal tersebut dapat dilakukan dengan menambahkan code diatas. <br> ```js socket.emit('join room', { username: userName, roomName: room }); ``` Untuk emitting-event username dan roomname ke server-side, socket.emit dapat digunakan seperti pada code diatas. <br> <br> socket.on berfungsi untuk event-handler baik pada server ataupun client. Pada aplikasi ini terdapat beberapa event yang harus dihandle pada client seperti menerima chat, melihat user yang ada pada room, serta melihat room yang tersedia. Code berikut digunakan untuk kebutuhan fungsionalitas tersebut. ```js socket.on('send data', (data) => {   ID = data.id; });",
+  "version": "1.0.0",
+  "main": "server.js",
+  "author": "",
+  "license": "ISC"
+}
