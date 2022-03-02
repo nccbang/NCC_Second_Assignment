@@ -75,16 +75,26 @@ let mouseDown = false;
 
 window.onmousedown = (e) => {
   ctx.moveTo(x, y);
+  socket.emit("down", { 
+    x : x, 
+    y : y,
+    room : room
+  });
   mouseDown = true;
 };
 window.onmouseup = (e) => {
   mouseDown = false;
 };
 
-socket.on
-('ondraw', function (data){
+socket.on('ondraw', function (data){
   ctx.lineTo (data.x, data.y);
   ctx.stroke();  
+  // console.log('okke1 has left');
+});
+
+socket.on('ondown', function (data){
+  ctx.moveTo (data.x, data.y);
+  console.log('okke has left');
 });
 
 window.onmousemove = (e) => {
@@ -94,9 +104,9 @@ window.onmousemove = (e) => {
   if (mouseDown){
       // console.log({x,y});
       socket.emit("draw", { 
-        x, 
-        y,
-        room
+        x : x, 
+        y : y,
+        room : room
       });
       ctx.lineTo (x,y);
       ctx.stroke();

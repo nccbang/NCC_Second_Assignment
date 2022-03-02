@@ -21,12 +21,9 @@ server.listen(3000, () => {
 });
 
 let thisRoom = '';
-let connections = [];
 
 
 io.on('connection', (socket) => {
-  
-  connections.push(socket);
 
   socket.on('join room', (data) => {
     let Newuser = joinUser(socket.id, data.username, data.roomName);
@@ -45,11 +42,12 @@ io.on('connection', (socket) => {
 
   socket.on('draw', (data) =>{
     thisRoom = data.room
-    thisRoom.forEach((con) =>{
-        if (con.id !== socket.id){
-            io.to(thisRoom).emit("ondraw", {x : data.x, y : data.y});
-        }
-    });
+    io.to(thisRoom).emit("ondraw", {x : data.x, y : data.y});
+  });
+
+  socket.on('down', (data) => {
+    thisRoom = data.room
+    io.to(thisRoom).emit("ondown", {x : data.x, y : data.y});
   });
 
   socket.on('chat message', (msg) => {
