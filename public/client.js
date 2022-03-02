@@ -82,27 +82,12 @@ window.onmousedown = (e) => {
   });
   mouseDown = true;
 };
-window.onmouseup = (e) => {
-  mouseDown = false;
-};
-
-socket.on('ondraw', function (data){
-  ctx.lineTo (data.x, data.y);
-  ctx.stroke();  
-  // console.log('okke1 has left');
-});
-
-socket.on('ondown', function (data){
-  ctx.moveTo (data.x, data.y);
-  console.log('okke has left');
-});
 
 window.onmousemove = (e) => {
   x = e.clientX;
   y = e.clientY;
 
   if (mouseDown){
-      // console.log({x,y});
       socket.emit("draw", { 
         x : x, 
         y : y,
@@ -112,3 +97,17 @@ window.onmousemove = (e) => {
       ctx.stroke();
   }
 };
+window.onmouseup = (e) => {
+  mouseDown = false;
+};
+
+socket.on('ondraw', function (data){
+  ctx.lineTo (data.x, data.y);
+  ctx.stroke();  
+});
+
+socket.on('ondown', function (data){
+  ctx.moveTo (data.x, data.y);
+  
+});
+
