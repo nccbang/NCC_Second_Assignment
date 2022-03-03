@@ -153,9 +153,15 @@ canvas{
 }
 
 .roombar{
+    
     border:2px solid;
     height: 150px;
     width: 100%;
     border-radius: 5px;
     border:2px solid rgba(255, 255, 255, 0.5);
+}
+
+.toolbar.responsive .roombar,
+.toolbar.responsive .informationbar {
+ display: none !important;
 }
