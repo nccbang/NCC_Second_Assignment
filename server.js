@@ -50,6 +50,11 @@ io.on('connection', (socket) => {
     io.to(thisRoom).emit("ondown", {x : data.x, y : data.y});
   });
 
+  socket.on('width', (data) => {
+    thisRoom = data.room
+    io.to(thisRoom).emit("linewidth", {lw : data.lw});
+  });
+
   socket.on('chat message', (msg) => {
     thisRoom = msg.room;
     io.to(thisRoom).emit('chat message', { msg: msg});

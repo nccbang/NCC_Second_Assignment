@@ -1,5 +1,7 @@
-let userName = prompt('Masukkan namamu');
-let room = prompt('Masukkan nama room');
+// let userName = prompt('Masukkan namamu');
+// let room = prompt('Masukkan nama room');
+let userName = 'aaa';
+let room = 'bbb';
 let ID = '';
 var socket = io();
 var roomname = document.getElementById('room');
@@ -55,51 +57,94 @@ socket.on('in room', (data) => {
         context.fillStyle="white";
         context.fillRect(0,0, context.canvas.width, context.canvas.height);
     });
-    context.canvas.addEventListener('mousedown', () =>{
-        var draw = true;
-        let x;
-        let y;
-        context.canvas.addEventListener('mousemove', (e)=>{
-            if(draw){
-                x = e.clientX;
-                y = e.clientY;
-                context.lineCap = "round";
-                context.lineTo(x,y);
-                context.stroke();
-                context.beginPath();
-                context.moveTo(x,y);
-                console.log('coor ' + x + ' ' + y);
-            }
-        });
-        socket.on('ondraw', function (data){
-            context.lineTo (data.x, data.y);
-            context.stroke();  
-            context.lineWidth = 1;
+    // context.canvas.addEventListener('mousedown', () =>{
+      let x;
+let y;
+
+let mouseDown = false;
+
+window.onmousedown = (e) => {
+  context.moveTo(x, y);
+  socket.emit("down", { 
+    x : x, 
+    y : y,
+    room : room
+  });
+  mouseDown = true;
+  context.beginPath();
+};
+
+window.onmousemove = (e) => {
+  x = e.clientX;
+  y = e.clientY;
+
+  if (mouseDown){
+      socket.emit("draw", { 
+        x : x, 
+        y : y,
+        room : room
+      });
+      context.lineCap = "round";
+      context.lineTo(x,y);
+      context.stroke();
+      context.beginPath();
+      context.moveTo(x,y);
+  }
+};
+
+window.onmouseup = (e) => {
+  mouseDown = false;
+};
+
+socket.on('ondraw', function (data){
+  context.lineCap = "round";
+  context.lineTo (data.x, data.y);
+  context.stroke();
+  context.beginPath();
+  context.stroke();
+  socket.on('linewidth', function (data){
+    context.lineWidth = data.lw;
+  });
+  
+});
+
+socket.on('ondown', function (data){
+  context.moveTo (data.x, data.y);
+  
+});
+      document.getElementById("small").addEventListener('click', (event) =>{
+          context.lineWidth = 1;
+          socket.emit("width", { 
+            lw : 1
           });
-        document.getElementById("small").addEventListener('click', (event) =>{
-            context.lineWidth = 1;
-        });
-        document.getElementById("middle").addEventListener('click', (event) =>{
-            context.lineWidth = 10;
-        });
-        document.getElementById("big").addEventListener('click', (event) =>{
-            context.lineWidth = 20;
-        });
-        document.getElementById("penColorInp").addEventListener('change', (event) =>{
-            var newColor = event.target.value;
-            context.strokeStyle= newColor;
-        });
-        document.getElementById("eraser").addEventListener('click', () =>{
-            context.strokeStyle= "#ffffff";
-        });
-        document.getElementById("pen").addEventListener('click', () =>{
-            context.strokeStyle= "#000000";
-        });
-        context.canvas.addEventListener('mouseup', ()=>{
-            draw = false;
-            context.beginPath();
-        });
-    });
+      });
+      document.getElementById("middle").addEventListener('click', (event) =>{
+          context.lineWidth = 10;
+          socket.emit("width", { 
+            lw : 10
+          });
+      });
+      document.getElementById("big").addEventListener('click', (event) =>{
+          context.lineWidth = 20;
+          socket.emit("width", { 
+            lw : 20
+          });
+      });
+      document.getElementById("penColorInp").addEventListener('change', (event) =>{
+          var newColor = event.target.value;
+          context.strokeStyle= newColor;
+      });
+      document.getElementById("eraser").addEventListener('click', () =>{
+          context.strokeStyle= "#ffffff";
+      });
+      document.getElementById("pen").addEventListener('click', () =>{
+          context.strokeStyle= "#000000";
+      });
+
+  // });
+
+
+  
     var element = document.querySelector(".toolbar");
     element.addEventListener('mousedown', start);
     function start(){

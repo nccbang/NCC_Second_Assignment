@@ -2,33 +2,66 @@
 <html>
   <head>
     <title>Socket.IO chat</title>
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
     <canvas id="canvas" class="canvas"></canvas>
-    <div class="header">
-      <h1>NCC Live Chat</h1>
-    </div>
-    <div class="roomname">
-      <h1 id="room">Roomname: </h1>
-    </div>
-    <div class="users">
-      <h1 class="inthisroom">In this room:</h1>
-      <ul id="user"></ul>
-    </div>
-    <div class="box">
-      <ul id="messages"></ul>
-    </div>
-    <div class="rooms">
-      <h1 class="roomavailable">Room Available:</h1>
-      <ul id="room-a"></ul>
-    </div>
-    <form id="form" action="">
-      <input id="input" autocomplete="off" /><button class="button">
-        Send
+    <nav class="toolbar">
+      <div class="row">
+        <div class="headtitle">
+          Navigatin Bar
+      </div>
+      <button onclick="myFunction()" class="button">
+        <i class="fa fa-bars fa-xs"></i>
       </button>
-    </form>
+      </div>
+      <div class="roomname">
+        <h1 id="room">Roomname: </h1>
+      </div>
+      <div class="row">
+        <label id="eraser-label">
+          <i class="bi bi-eraser" id="eraser"></i>
+        </label>
+        <label id="pen-label">
+          <i class="bi bi-pen" id="pen"></i>
+        </label>
+        <label id="pen-color-label">
+          <input type="color" id="penColorInp">
+          <i class="bi bi-palette"></i>
+        </label>
+      </div>
+      <div class="row md-1">
+        <label>
+          <i class="bi bi-dot" id="small"></i>
+        </label>
+    
+        <label>
+          <i class="bi bi-dot" id="middle"></i>
+        </label>
+    
+        <label>
+          <i class="bi bi-dot" id="big"></i>
+        </label>
+      </div>
+      <div class="mydiv" id="myDIV">
+        <div class="informationbar">
+          <div class="title">Pipel in room</div>
+
+          <div class="information-detail">
+            <ul id="user"></ul>
+          </div>
+      </div>
+      <div class="roombar">
+        <div class="title">Room available</div>
+        <div class="information-detail">
+          <ul id="room-a"></ul>
+        </div>
+      </div>
+      </div>
+    </nav>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="./client.js"></script>
+    <script src="testingcopy.js"></script>
   </body>
 </html>

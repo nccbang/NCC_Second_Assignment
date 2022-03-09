@@ -26,13 +26,13 @@ canvas{
   height: 100%;
 }
 .toolbar{
-  width: 200px;
-  height: 550px;
+  width: 220px;
+  /* height: 580px; */
   padding: 5px 15px;
   background-color: lightslategrey;
-  inset: 0px;
+  inset-block-start: 20px;
+  inset-inline-start: 20px;
   position: absolute;
-  inset: 20px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -48,14 +48,34 @@ canvas{
 .toolbar:active{
   opacity: .7;
 }
+.md-1{
+  padding-bottom: 10px !important;
+}
 .toolbar .headtitle{
+    margin-top: 20px;
     color:whitesmoke;
     font-family: 'Poppins';
     font-weight: 600;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 80%;
     letter-spacing: 1px;
 }
+.button{
+  margin-top: 25px;
+  color: white;
+  background-color:lightslategrey;
+  border-radius: 2px;
+  align-items: center;
+  height: 100%;
+  width: 20px;
+}
+
+.button:hover{
+  background: whitesmoke;
+  color:lightslategrey;
+  align-items: center;
+}
+
 .toolbar .row{
   display: flex;
   width: 100%;
@@ -122,13 +142,18 @@ canvas{
   color: white;
   border-color: dodgerblue;
 }
-
+.mydiv{
+  width: 100%;
+  /* height: 100%; */
+}
 .informationbar{
     border:2px solid;
     height: 200px;
     width: 100%;
+    margin-left:0;
     border-radius: 5px;
     border:2px solid rgba(255, 255, 255, 0.5);
+    margin-bottom: 15px;
 }
 .informationbar .title,
 .roombar .title{
@@ -153,15 +178,10 @@ canvas{
 }
 
 .roombar{
-    
     border:2px solid;
     height: 150px;
     width: 100%;
     border-radius: 5px;
     border:2px solid rgba(255, 255, 255, 0.5);
-}
-
-.toolbar.responsive .roombar,
-.toolbar.responsive .informationbar {
- display: none !important;
+    margin-bottom: 15px;
 }

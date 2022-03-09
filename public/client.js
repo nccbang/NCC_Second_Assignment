@@ -97,6 +97,7 @@ window.onmousemove = (e) => {
       ctx.stroke();
   }
 };
+
 window.onmouseup = (e) => {
   mouseDown = false;
 };

@@ -10,15 +10,21 @@
 <body>
     <canvas></canvas>
     <nav class="toolbar">
+      <div class="row">
         <div class="headtitle">
-            Navigatin Bar
-        </div>
-
+          Navigatin Bar
+      </div>
+      <button onclick="myFunction()" class="button">
+        <i class="fa fa-bars fa-xs"></i>
+      </button>
+      </div>
+      <div class="roomname">
+        <h1 id="room">Roomname: </h1>
+      </div>
       <div class="row">
         <label id="eraser-label">
           <i class="bi bi-eraser" id="eraser"></i>
         </label>
-    
         <label id="pen-label">
           <i class="bi bi-pen" id="pen"></i>
         </label>
@@ -27,7 +33,7 @@
           <i class="bi bi-palette"></i>
         </label>
       </div>
-      <div class="row">
+      <div class="row md-1">
         <label>
           <i class="bi bi-dot" id="small"></i>
         </label>
@@ -40,29 +46,26 @@
           <i class="bi bi-dot" id="big"></i>
         </label>
       </div>
-      <div class="informationbar">
+      <div class="mydiv" id="myDIV">
+        <div class="informationbar">
           <div class="title">Pipel in room</div>
 
           <div class="information-detail">
-            <ul>
-                <li><p>danial</p></li>
-                <li><p>farros</p></li>
-                <li><p>oke</p></li>
-            </ul> 
+            <ul id="user"></ul>
           </div>
       </div>
       <div class="roombar">
         <div class="title">Room available</div>
         <div class="information-detail">
-            <ul>
-                <li><p>AJK</p></li>
-                <li><p>Ncc</p></li>
-                <li><p>OKKE</p></li>
-            </ul>
+          <ul id="room-a"></ul>
         </div>
-    </div>
+      </div>
+      </div>
     </nav>
+    
     <script src="testing.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    
 </body>
 
 </html>
