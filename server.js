@@ -60,6 +60,11 @@ io.on('connection', (socket) => {
     thisRoom = msg.room;
     io.to(thisRoom).emit('chat message', { msg: msg});
   });
+
+  socket.on("send-notification", function (data) {
+    io.emit("new-notification", data);
+  });
+
 });
 
 io.on('connection', (socket) => {

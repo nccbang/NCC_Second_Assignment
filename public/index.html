@@ -5,21 +5,23 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@100&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="css/toastr.min.css" rel="stylesheet"/>
   </head>
   <body>
     <canvas id="canvas" class="canvas"></canvas>
     <nav class="toolbar">
       <div class="row">
-        <div class="headtitle">
-          Navigatin Bar
-      </div>
+        <div id="room" class="headtitle">Room  </div>
+        <!-- <div class="headtitle">
+          Room
+      </div> -->
       <button onclick="myFunction()" class="button">
         <i class="fa fa-bars fa-xs"></i>
       </button>
       </div>
-      <div class="roomname">
-        <h1 id="room">Roomname: </h1>
-      </div>
+      <!-- <div class="roomname">
+        <h1 id="room">Roomname: bbb </h1>
+      </div> -->
       <div class="row">
         <label id="eraser-label">
           <i class="bi bi-eraser" id="eraser"></i>
@@ -59,9 +61,45 @@
           <ul id="room-a"></ul>
         </div>
       </div>
+      <div class="chatroom">
+        <div class="title">Live Chat</div>
+        <form id="myform">
+        <input type="text" id="msg" /> 
+        <button type="button" onclick="sendMessage()"value=" Reset form">Send</button>
+      </form>
+      </div>
       </div>
     </nav>
     <script src="/socket.io/socket.io.js"></script>
     <script src="testingcopy.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/toastr.min.js"></script>
+    <script>
+      toastr.options = {
+          timeOut: 5000,
+          positionClass : 'toast-bottom-right',
+          extendedTimeOut: 0,
+          fadeOut: 0,
+          fadeIn: 0,
+          showDuration: 0,
+          hideDuration: 0,
+          debug: false
+      };
+
+      socket.on('new-notification', (resp) => {
+        toastr.success('"' + resp.user+'" : '+ resp.msg, 'New notification')
+      });
+    
+      function sendMessage() {
+        let msg = document.getElementById('msg').value;
+        if(msg.trim() !== '') {
+          socket.emit("send-notification", { 
+            msg : msg,
+            user : userName
+          });
+          document.getElementById("myform").reset();
+        }  
+      }
+    </script>
   </body>
 </html>

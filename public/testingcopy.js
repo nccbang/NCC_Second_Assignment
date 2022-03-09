@@ -1,7 +1,7 @@
-// let userName = prompt('Masukkan namamu');
-// let room = prompt('Masukkan nama room');
-let userName = 'aaa';
-let room = 'bbb';
+let userName = prompt('Masukkan namamu');
+let room = prompt('Masukkan nama room');
+// let userName = 'aaa';
+// let room = 'bbb';
 let ID = '';
 var socket = io();
 var roomname = document.getElementById('room');

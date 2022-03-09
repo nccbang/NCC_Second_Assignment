@@ -1,5 +1,6 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css");
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka&display=swap');
 *{
   margin:0px;
   padding:0px;
@@ -52,7 +53,7 @@ canvas{
   padding-bottom: 10px !important;
 }
 .toolbar .headtitle{
-    margin-top: 20px;
+    margin-top: 23px;
     color:whitesmoke;
     font-family: 'Poppins';
     font-weight: 600;
@@ -156,7 +157,8 @@ canvas{
     margin-bottom: 15px;
 }
 .informationbar .title,
-.roombar .title{
+.roombar .title,
+.chatroom .title{
     margin-left: 10px;
     margin-top: 10px;
     margin-bottom: 5px;
@@ -164,7 +166,11 @@ canvas{
     letter-spacing: 1px;
     
 }
-
+.roomname{
+  color: white;
+  text-align: left;
+  font-size: 10px;
+}
 .information-detail p{
     font-family: 'Urbanist';
     font-weight: 400;
@@ -175,6 +181,10 @@ canvas{
 .information-detail ul{
     margin-left: 30px;
     color: white;
+    font-family: Urbanist;
+    line-height: 1.2;
+    letter-spacing: 1px
+
 }
 
 .roombar{
@@ -184,4 +194,41 @@ canvas{
     border-radius: 5px;
     border:2px solid rgba(255, 255, 255, 0.5);
     margin-bottom: 15px;
+}
+.chatroom{
+  /* border:2px solid rgba(255, 255, 255, 0.5); */
+  position: relative;
+}
+
+.chatroom input{
+  width: 100%;
+  /* height: 75px; */
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.chatroom input[type=text] {
+  width: 100%;
+  font-family: 'Poppins';
+  color: whitesmoke;
+  font-weight: 400;
+  position: relative;
+  display: inline-block;
+  padding: 10px
+}
+
+.chatroom button {
+  /* position: absolute; */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  padding: 5px;
+  float: right;
+  font-family: Fredoka;
+  font-size: 15px;
+  font-weight: 400;
+  border-radius: 4px;
+  color: rgba(0, 0, 0, 0.623);
+  background-color: rgba(255, 255, 255, 0.5);
 }
