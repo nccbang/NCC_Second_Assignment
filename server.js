@@ -42,17 +42,18 @@ io.on('connection', (socket) => {
 
   socket.on('draw', (data) =>{
     thisRoom = data.room
-    io.to(thisRoom).emit("ondraw", {x : data.x, y : data.y});
+    io.to(thisRoom).emit("ondraw", {
+      x : data.x, 
+      y : data.y, 
+      lw : data.lw, 
+      color : data.color
+    });
+    console.log(data.color + ' lw');
   });
 
   socket.on('down', (data) => {
     thisRoom = data.room
     io.to(thisRoom).emit("ondown", {x : data.x, y : data.y});
-  });
-
-  socket.on('width', (data) => {
-    thisRoom = data.room
-    io.to(thisRoom).emit("linewidth", {lw : data.lw});
   });
 
   socket.on('chat message', (msg) => {

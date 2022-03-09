@@ -42,7 +42,7 @@ socket.on('in room', (data) => {
   window.scrollTo(0, document.body.scrollHeight);
 });
 
-
+window.addEventListener('load', ()=>{
     var context = document.querySelector("canvas").getContext("2d");
     context.canvas.width = document.documentElement.clientWidth;
     context.canvas.height = document.documentElement.clientHeight;
@@ -113,6 +113,7 @@ socket.on('in room', (data) => {
     element.addEventListener('mouseup', () =>{
         removeEventListener("mousemove", move)
     });
+});
 
 window.addEventListener('contextmenu', (e) => {
     e.preventDefault()

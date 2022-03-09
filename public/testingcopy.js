@@ -44,7 +44,7 @@ socket.on('in room', (data) => {
   window.scrollTo(0, document.body.scrollHeight);
 });
 
-
+  window.addEventListener('load', ()=>{
     var context = document.querySelector("canvas").getContext("2d");
     context.canvas.width = document.documentElement.clientWidth;
     context.canvas.height = document.documentElement.clientHeight;
@@ -57,94 +57,102 @@ socket.on('in room', (data) => {
         context.fillStyle="white";
         context.fillRect(0,0, context.canvas.width, context.canvas.height);
     });
-    // context.canvas.addEventListener('mousedown', () =>{
-      let x;
-let y;
 
-let mouseDown = false;
+          let x;
+          let y;
 
-window.onmousedown = (e) => {
-  context.moveTo(x, y);
-  socket.emit("down", { 
-    x : x, 
-    y : y,
-    room : room
-  });
-  mouseDown = true;
-  context.beginPath();
-};
+          let mouseDown = false;
 
-window.onmousemove = (e) => {
-  x = e.clientX;
-  y = e.clientY;
-
-  if (mouseDown){
-      socket.emit("draw", { 
-        x : x, 
-        y : y,
-        room : room
-      });
-      context.lineCap = "round";
-      context.lineTo(x,y);
-      context.stroke();
-      context.beginPath();
-      context.moveTo(x,y);
-  }
-};
-
-window.onmouseup = (e) => {
-  mouseDown = false;
-};
-
-socket.on('ondraw', function (data){
-  context.lineCap = "round";
-  context.lineTo (data.x, data.y);
-  context.stroke();
-  context.beginPath();
-  context.stroke();
-  socket.on('linewidth', function (data){
-    context.lineWidth = data.lw;
-  });
-  
-});
-
-socket.on('ondown', function (data){
-  context.moveTo (data.x, data.y);
-  
-});
-      document.getElementById("small").addEventListener('click', (event) =>{
-          context.lineWidth = 1;
-          socket.emit("width", { 
-            lw : 1
+        context.canvas.addEventListener('mousedown', (e) => {
+          context.moveTo(x, y);
+          socket.emit("down", { 
+            x : x, 
+            y : y,
+            room : room
           });
-      });
-      document.getElementById("middle").addEventListener('click', (event) =>{
-          context.lineWidth = 10;
-          socket.emit("width", { 
-            lw : 10
-          });
-      });
-      document.getElementById("big").addEventListener('click', (event) =>{
-          context.lineWidth = 20;
-          socket.emit("width", { 
-            lw : 20
-          });
-      });
-      document.getElementById("penColorInp").addEventListener('change', (event) =>{
-          var newColor = event.target.value;
-          context.strokeStyle= newColor;
-      });
-      document.getElementById("eraser").addEventListener('click', () =>{
-          context.strokeStyle= "#ffffff";
-      });
-      document.getElementById("pen").addEventListener('click', () =>{
-          context.strokeStyle= "#000000";
-      });
+          mouseDown = true;
+          context.beginPath();
+        });
 
-  // });
+        context.canvas.addEventListener('mousemove', (e) => {
+          x = e.clientX;
+          y = e.clientY;
 
+          if (mouseDown){
+              socket.emit("draw", { 
+                x : x, 
+                y : y,
+                room : room,
+                lw : context.lineWidth,
+                color : context.strokeStyle
+              });
+              context.lineCap = "round";
+              context.lineTo(x,y);
+              context.stroke();
+              context.beginPath();
+              context.moveTo(x,y);
+          }
+        });
 
-  
+        context.canvas.addEventListener('mouseup', (e)=> {
+          mouseDown = false;
+        });
+
+        socket.on('linewidth', function (data){
+          let lwlw = data.lw;
+          console.log(lwlw);
+          
+        });
+
+        socket.on('ondraw', function (data){
+          let lwlw = data.lw;
+          context.strokeStyle= data.color;
+          console.log(data.color +' emit');
+          context.lineWidth = data.lw;
+          context.strokeStyle = data.color;
+          context.lineCap = "round";
+          context.lineTo (data.x, data.y);
+          context.stroke();
+          context.stroke();
+        });
+
+        socket.on('ondown', function (data){
+          context.moveTo (data.x, data.y);
+          context.beginPath();
+        });
+
+        document.getElementById("small").addEventListener('click', (event) =>{
+            context.lineWidth = 1;
+            socket.emit("draw", { 
+              lw : 1
+            });
+        });
+        document.getElementById("middle").addEventListener('click', (event) =>{
+            context.lineWidth = 10;
+            socket.emit("draw", { 
+              lw : 10
+            });
+        });
+        document.getElementById("big").addEventListener('click', (event) =>{
+            context.lineWidth = 20;
+            socket.emit("draw", { 
+              lw : 20
+            });
+        });
+        document.getElementById("penColorInp").addEventListener('change', (event) =>{
+            var newColor = event.target.value;
+            context.strokeStyle= newColor;
+            console.log(newColor);
+
+        });
+        document.getElementById("eraser").addEventListener('click', () =>{
+            context.strokeStyle= "#ffffff";
+        });
+        document.getElementById("pen").addEventListener('click', () =>{
+            context.strokeStyle= "#000000";
+        });
+    
+    
     var element = document.querySelector(".toolbar");
     element.addEventListener('mousedown', start);
     function start(){
@@ -158,7 +166,7 @@ socket.on('ondown', function (data){
     element.addEventListener('mouseup', () =>{
         removeEventListener("mousemove", move)
     });
-
+  });
 window.addEventListener('contextmenu', (e) => {
     e.preventDefault()
 });
