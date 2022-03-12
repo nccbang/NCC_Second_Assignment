@@ -94,7 +94,6 @@
       socket.on('new-notification', (resp) => {
         toastr.success('"' + resp.user+'" : '+ resp.msg, 'New notification')
       });
-    
       function sendMessage() {
         let msg = document.getElementById('msg').value;
         if(msg.trim() !== '') {
