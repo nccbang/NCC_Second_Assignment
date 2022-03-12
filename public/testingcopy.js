@@ -25,7 +25,6 @@ function download(){
   link.href = image;
   link.click();
 }
-
 socket.on('send data', (data) => {
   ID = data.id;
 });
