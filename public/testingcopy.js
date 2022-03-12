@@ -15,6 +15,16 @@ socket.emit('join room', {
 var messages = document.getElementById('messages');
 var form = document.getElementById('form');
 var input = document.getElementById('input');
+var imgcanvas = document.getElementById('canvas');
+
+function download(){
+  var canvas = document.getElementById('canvas');
+  image = canvas.toDataURL("image/png");
+  var link = document.createElement('a');
+  link.download = "image.png";
+  link.href = image;
+  link.click();
+}
 
 socket.on('send data', (data) => {
   ID = data.id;
