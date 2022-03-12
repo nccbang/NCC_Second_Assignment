@@ -20,7 +20,7 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
-    overflow: auto;
+  overflow: auto;
   padding:30px;
   -webkit-box-shadow:
 		inset #19d4ff 0 0 0 5px,
